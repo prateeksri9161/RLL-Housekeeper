@@ -1,0 +1,211 @@
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 304
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bookstore          |
+| data               |
+| ecommerce          |
+| eproduct           |
+| flyaway            |
+| information_schema |
+| mysql              |
+| newdata            |
+| performance_schema |
+| product_details    |
+| productdb          |
+| productdemo        |
+| samplecomponent    |
+| sh                 |
+| shoes              |
+| simplilearn        |
+| sportyshoes        |
+| sys                |
+| user               |
++--------------------+
+19 rows in set (0.06 sec)
+
+mysql> create database house_keeping;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> use house_keeping;
+Database changed
+mysql> create tbl_complaints(ticket_id int not null auto_increment,complaint varchar(255),customer_email varchar(255),pincode varchar(255),status varchar(255),primary key(ticket_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tbl_complaints(ticket_id int not null auto_increment,complaint varchar(255),cust' at line 1
+mysql> create table tbl_complaints(ticket_id int not null auto_increment,complaint varchar(255),customer_email varchar(255),pincode varchar(255),status varchar(255),primary key(ticket_id));
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> desc tbl_complaints;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| ticket_id      | int          | NO   | PRI | NULL    | auto_increment |
+| complaint      | varchar(255) | YES  |     | NULL    |                |
+| customer_email | varchar(255) | YES  |     | NULL    |                |
+| pincode        | varchar(255) | YES  |     | NULL    |                |
+| status         | varchar(255) | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.02 sec)
+
+mysql> create table tbl_customer(customer_email varchar(255),customer_address varchar(255),customer_mobile varchar(255),customer_name varchar(255),customer_password varchar(255),customer_pincode varchar(255),primary key(customer_email),unique(customer_mobile));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc tbl_customer;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| customer_email    | varchar(255) | NO   | PRI | NULL    |       |
+| customer_address  | varchar(255) | YES  |     | NULL    |       |
+| customer_mobile   | varchar(255) | YES  | UNI | NULL    |       |
+| customer_name     | varchar(255) | YES  |     | NULL    |       |
+| customer_password | varchar(255) | YES  |     | NULL    |       |
+| customer_pincode  | varchar(255) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> create table tbl_engineer(engineer_email varchar(255),engineer_name varchar(255),engineer_password varchar(255),primary key(engineer_email));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc tbl_engineeer;
+ERROR 1146 (42S02): Table 'house_keeping.tbl_engineeer' doesn't exist
+mysql> desc tbl_engineer;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| engineer_email    | varchar(255) | NO   | PRI | NULL    |       |
+| engineer_name     | varchar(255) | YES  |     | NULL    |       |
+| engineer_password | varchar(255) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> create table tbl_engineer_duty(engineer_duty_id int,customer_email varchar(255),engineer_email varchar(255),ticket_id int,primary key(engineer_duty_id));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc tbl_engineer_duty;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| engineer_duty_id | int          | NO   | PRI | NULL    |       |
+| customer_email   | varchar(255) | YES  |     | NULL    |       |
+| engineer_email   | varchar(255) | YES  |     | NULL    |       |
+| ticket_id        | int          | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> DROP table  tbl_engineer_duty;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table tbl_engineer_duty(engineer_duty_id int not null auto_increment,customer_email varchar(255),engineer_email varchar(255),ticket_id int,primary key(engineer_duty_id));
+Query OK, 0 rows affected (1.77 sec)
+
+mysql> desc tbl_engineer_duty;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| engineer_duty_id | int          | NO   | PRI | NULL    | auto_increment |
+| customer_email   | varchar(255) | YES  |     | NULL    |                |
+| engineer_email   | varchar(255) | YES  |     | NULL    |                |
+| ticket_id        | int          | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> DROP table  tbl_engineer_duty;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table tbl_engineer_duty(engineer_duty_id int not null auto_increment,customer_email varchar(255),engineer_email varchar(255),ticket_id int not null,primary key(engineer_duty_id));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> desc tbl_engineer_duty;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| engineer_duty_id | int          | NO   | PRI | NULL    | auto_increment |
+| customer_email   | varchar(255) | YES  |     | NULL    |                |
+| engineer_email   | varchar(255) | YES  |     | NULL    |                |
+| ticket_id        | int          | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> create table tbl_feedbacks(feedback_id int not null auto_increment,customer_email varchar(255),feedback varchar(255),ticket_id int not null,primary key(feedback_id));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> desc tbl_feedbacks;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| feedback_id    | int          | NO   | PRI | NULL    | auto_increment |
+| customer_email | varchar(255) | YES  |     | NULL    |                |
+| feedback       | varchar(255) | YES  |     | NULL    |                |
+| ticket_id      | int          | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
+
+mysql> create table tbl_manager(manager_email varchar(255),manager_name varchar(255),manager_password varchar(255),manager_pincode varchar(255),primary key(manager_email));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc tbl_manager;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| manager_email    | varchar(255) | NO   | PRI | NULL    |       |
+| manager_name     | varchar(255) | YES  |     | NULL    |       |
+| manager_password | varchar(255) | YES  |     | NULL    |       |
+| manager_pincode  | varchar(255) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bookstore          |
+| data               |
+| ecommerce          |
+| eproduct           |
+| flyaway            |
+| house_keeping      |
+| information_schema |
+| mysql              |
+| newdata            |
+| performance_schema |
+| product_details    |
+| productdb          |
+| productdemo        |
+| samplecomponent    |
+| sh                 |
+| shoes              |
+| simplilearn        |
+| sportyshoes        |
+| sys                |
+| user               |
++--------------------+
+20 rows in set (0.00 sec)
+
+mysql> use house_keeping;
+Database changed
+mysql> show tables;
++-------------------------+
+| Tables_in_house_keeping |
++-------------------------+
+| tbl_complaints          |
+| tbl_customer            |
+| tbl_engineer            |
+| tbl_engineer_duty       |
+| tbl_feedbacks           |
+| tbl_manager             |
++-------------------------+
+6 rows in set (0.01 sec)
+
+mysql>
